@@ -37,4 +37,20 @@ It means :
 5% of times the demand is between 451 to 563
 1% of time the demand is 782   -> Outlier
 
+# Check Multiple Linear Regression Assumptions:
+
+# Conslusion after checking Linearity using correlation coefficient matrix using correlation coefficent
+
+    1. aTemp has to be dropped as it is similar to Temperature (corr = 0.9)
+    2. Dropping windspeed as it has no relation with the demand (corr = 0.09)
+
+# Autocorrelation Analysis 
+
+    1. The autocorrelation values remain high and positive (0.45–0.93) across multiple lags.
+    2. Peak correlation at lag 0 = 1.0, gradually decreasing but staying significant even at lag ±12.
+    3. This indicates a strong temporal dependency — current bike demand is highly correlated with past demand.
+    4. The slow decay of correlation suggests a trend or seasonality in the demand pattern (e.g., daily/weekly cycles).
+    5. Data is likely non-stationary, meaning the mean and variance change over time.
+    6. For modeling, differencing or detrending may be required before applying regression or time-series forecasting models (e.g., ARIMA, SARIMA).
+
 
