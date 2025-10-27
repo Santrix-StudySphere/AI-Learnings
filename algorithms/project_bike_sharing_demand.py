@@ -205,7 +205,7 @@ bikes_prep_lag = pd.get_dummies(bikes_prep_lag, drop_first=True)
 Y = bikes_prep_lag[['demand']]
 X = bikes_prep_lag.drop(['demand'], axis=1)
 
-tr_size = 0.7 * len(X)
+tr_size = 0.7 * len(X)        # taking 70% of total rows as training data
 tr_size = int(tr_size)
 
 X_train = X.values[0 : tr_size]
