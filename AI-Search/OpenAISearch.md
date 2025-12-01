@@ -83,7 +83,7 @@ Normalize vectors → use **dot product** to compute similarity.
 ## 6. Quick C# Helpers
 
 ### Normalize Vector
-csharp: 
+```csharp: 
 public static float[] Normalize(float[] v)
 {
     var norm = Math.Sqrt(v.Sum(x => x * x));
