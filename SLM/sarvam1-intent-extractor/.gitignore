@@ -1,0 +1,28 @@
+# 1. Virtual Environments (CRITICAL - This is what's causing your 1000+ files)
+.venv/
+venv/
+env/
+ENV/
+
+# 2. Model Weights & Checkpoints (These are huge, do not push to GitHub)
+models/
+outputs/
+checkpoints/
+*.bin
+*.pt
+*.safetensors
+*.onnx
+
+# 3. Python Cache & Jupyter
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# 4. Environment Variables / Secrets (Never push your HF token)
+.env
+*.log
+
+# 5. OS specific files
+.DS_Store
+Thumbs.db
