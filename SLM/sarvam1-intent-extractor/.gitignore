@@ -1,0 +1,20 @@
+   # Virtual Environment
+   .venv/
+   venv/
+   env/
+   
+   # Python
+   __pycache__/
+   *.py[cod]
+   .ipynb_checkpoints/
+   
+   # Model Weights & Checkpoints (DO NOT PUSH TO GITHUB)
+   models/
+   *.bin
+   *.pt
+   *.safetensors
+   outputs/
+   
+   # OS
+   .DS_Store
+   Thumbs.db
