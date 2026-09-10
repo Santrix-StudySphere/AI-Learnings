@@ -26,3 +26,7 @@ __pycache__/
 # 5. OS specific files
 .DS_Store
 Thumbs.db
+
+# Unsloth generated files
+unsloth_compiled_cache/
+**/unsloth_compiled_cache/*.py

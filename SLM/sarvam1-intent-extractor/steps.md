@@ -11,7 +11,7 @@
 python -m pip install --upgrade pip
 
 # 3. Install PyTorch with CUDA 12.1 support
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 
 # 4. Install Unsloth and all fine-tuning dependencies
 pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
