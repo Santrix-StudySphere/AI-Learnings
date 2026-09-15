@@ -1,0 +1,72 @@
+Sarvam Intent Extractor - CPU Inference Setup Guide
+==================================================
+
+This file is for moving the project, the downloaded base model, and the trained adapter to another device so you can run the API without retraining.
+
+What to copy from the old machine:
+- Entire project folder
+- .\outputs\sarvam1-intent-finetuned\
+- .\models\sarvam-1\ (optional but recommended if you want the base model locally)
+- .\data\complete_dataset.jsonl (only needed for evaluation or debugging, not required for inference)
+
+Important: this setup is for inference only. You do not need to retrain or re-download the full training stack.
+
+1) Open PowerShell in the project folder
+   cd C:\path\to\SLM\sarvam1-intent-extractor
+
+2) Create a virtual environment
+   py -3.10 -m venv .venv
+
+3) Activate the environment
+   .\.venv\Scripts\Activate.ps1
+
+4) Upgrade Python packaging tools
+   python -m pip install --upgrade pip setuptools wheel
+
+5) Install CPU-only PyTorch
+   python -m pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision torchaudio
+
+6) Install runtime and inference dependencies
+   python -m pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+   python -m pip install fastapi uvicorn pydantic json-repair lm-format-enforcer huggingface_hub tqdm transformers datasets sentencepiece peft accelerate
+
+7) Optional: download the base Sarvam model manually if you want it local
+   python -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='sarvamai/sarvam-1', local_dir='./models/sarvam-1', local_dir_use_symlinks=False)"
+
+8) Verify the required folders exist
+   dir .\outputs
+   dir .\models
+
+9) For CPU-only inference, update api_server.py to avoid 4-bit GPU loading
+   Replace the startup model load section with:
+
+   app.state.model, app.state.tokenizer = FastLanguageModel.from_pretrained(
+       model_name=LORA_PATH,
+       max_seq_length=4096,
+       dtype=None,
+       load_in_4bit=False,
+   )
+
+   And replace the device selection with:
+
+   device = "cpu"
+
+10) Run the API locally
+    uvicorn api_server:app --host 0.0.0.0 --port 8000
+
+11) Check health
+    curl http://127.0.0.1:8000/health
+
+Notes:
+- Keep .venv ignored in Git.
+- Keep outputs/, models/, checkpoints/, and generated model files ignored.
+- For inference, the important runtime folder is .\outputs\sarvam1-intent-finetuned\final_lora_model.
+- The base model can be downloaded once and copied to the new device, but you do not need to retrain or re-download the full training stack.
+- If you want to keep the repo lean, you can skip the .\data\ folder unless you plan to evaluate or debug with sample data.
+
+Recommended final copy list for the new device:
+- .\api_server.py
+- .\requirements-like setup commands (this file)
+- .\outputs\sarvam1-intent-finetuned\
+- .\models\sarvam-1\ (optional)
+- .\data\ (optional for evaluation)

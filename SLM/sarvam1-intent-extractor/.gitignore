@@ -5,8 +5,6 @@ env/
 ENV/
 
 # 2. Model Weights & Checkpoints (These are huge, do not push to GitHub)
-models/
-outputs/
 outputs_backup_run1/
 checkpoints/
 *.bin
